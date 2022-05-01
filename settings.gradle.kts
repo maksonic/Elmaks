@@ -13,4 +13,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Elmaks"
-include ':app'
+include (":app")
+include(":core")
+include(":data")
+include(":domain")

@@ -1,11 +1,29 @@
 package ru.maksonic.elmaks
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.material.Scaffold
+import androidx.compose.runtime.Composable
+import dagger.hilt.android.AndroidEntryPoint
+import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent {
+
+            ElmaksTheme {
+                Screen()
+            }
+        }
+    }
+}
+
+@Composable
+fun Screen() {
+    Scaffold(){
+
     }
 }
