@@ -42,12 +42,14 @@ android {
 }
 
 dependencies {
-    implementation(Module.CORE)
-    implementation(Module.DOMAIN)
-    implementation(Lib.AndroidX.MATERIAL)
-    implementation(Lib.Accompanist.SYSTEM_UI)
+    implementation(project(Module.CORE))
+    implementation(project(Module.DOMAIN))
+    implementation(project(Module.SHARED))
+
     implementation(Lib.Compose.UI)
+    implementation(Lib.Compose.UI_PREVIEW)
     implementation(Lib.Compose.MATERIAL)
     implementation(Lib.Dagger.HILT)
+    implementation(Lib.Dagger.VIEWMODEL)
     kapt(Lib.Dagger.COMPILER)
 }

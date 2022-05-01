@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Elmaks</string>
+    <string name="title_scr_main">Выберите город</string>
+    <string name="cd_scr_main_filter_btn">Кнопка, фильтр для списка городов</string>
+    <string name="cd_scr_main_back_from_search_btn">Кнопка, отменить поиск городов</string>
+    <string name="hint_search_city">Введите название города</string>
+    <string name="scr_main_header_title">Выбрать город</string>
+    <string name="scr_main_header_search_action">Ищем город:\n</string>
+    <string name="cd_scr_details_to_main_btn">Кнопка, назад к списку городов</string>
+
+</resources>
