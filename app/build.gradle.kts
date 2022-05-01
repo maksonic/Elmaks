@@ -51,6 +51,10 @@ dependencies {
     implementation(project(Module.CORE))
     implementation(project(Module.DATA))
     implementation(project(Module.DOMAIN))
+
+    implementation(project(Feature.DETAILS))
+    implementation(project(Feature.MAIN))
+
     implementation(Lib.AndroidX.CORE_KTX)
     implementation(Lib.Compose.UI)
     implementation(Lib.Compose.MATERIAL)
@@ -59,6 +63,7 @@ dependencies {
     implementation(Lib.Compose.ACTIVITY)
     implementation(Lib.Dagger.HILT)
     kapt(Lib.Dagger.COMPILER)
+
     testImplementation(Lib.Test.Junit.JUNIT)
     androidTestImplementation(Lib.Test.Junit.EXT)
     androidTestImplementation(Lib.Test.Espresso.CORE)
