@@ -60,6 +60,7 @@ dependencies {
     implementation(Lib.AndroidX.CORE_KTX)
     implementation(Lib.Compose.UI)
     implementation(Lib.Compose.MATERIAL)
+    implementation(Lib.Compose.NAVIGATION)
     implementation(Lib.Compose.UI_PREVIEW)
     implementation(Lib.Lifecycle.RUNTIME_KTX)
     implementation(Lib.Compose.ACTIVITY)

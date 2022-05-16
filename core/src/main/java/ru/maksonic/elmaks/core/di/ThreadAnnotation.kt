@@ -3,7 +3,7 @@ package ru.maksonic.elmaks.core.di
 import javax.inject.Qualifier
 
 /**
- * @author makosnic on 01.05.2022
+ * @author maksonic on 01.05.2022
  */
 @Retention(AnnotationRetention.BINARY)
 @Qualifier

@@ -1,5 +1,5 @@
 /**
- * @author makosnic on 01.05.2022
+ * @author maksonic on 01.05.2022
  */
 object Build {
 
@@ -10,17 +10,22 @@ object Build {
     }
 
     object ToolsGradle {
-        private const val version = "7.1.3"
+        private const val version = "7.2.0"
         const val init = "com.android.tools.build:gradle:$version"
     }
 
     object HiltGradle {
-        private const val version = "2.40"
+        private const val version = "2.42"
         const val init = "com.google.dagger:hilt-android-gradle-plugin:$version"
     }
 
     object KotlinGradle {
         private const val version = Config.kotlinVersion
         const val init = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
+    }
+
+    object KotlinSerialization {
+        private const val version = "1.6.10"
+        const val init = "org.jetbrains.kotlin:kotlin-serialization:$version"
     }
 }

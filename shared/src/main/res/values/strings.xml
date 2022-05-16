@@ -3,9 +3,16 @@
     <string name="title_scr_main">Выберите город</string>
     <string name="cd_scr_main_filter_btn">Кнопка, фильтр для списка городов</string>
     <string name="cd_scr_main_back_from_search_btn">Кнопка, отменить поиск городов</string>
+    <string name="cd_scr_main_switch_theme_btn">Кнопка, сменить тему оформления</string>
     <string name="hint_search_city">Введите название города</string>
     <string name="scr_main_header_title">Выбрать город</string>
     <string name="scr_main_header_search_action">Ищем город:\n</string>
     <string name="cd_scr_details_to_main_btn">Кнопка, назад к списку городов</string>
 
+    <string name="sorted_a_z">От А до Я</string>
+    <string name="sorted_z_a">От Я до А</string>
+    <string name="sorted_code_asc">Код по возрастанию</string>
+    <string name="sorted_code_desc">Код по убыванию</string>
+
+    <string name="hint_retry_loading">Повторить попытку</string>
 </resources>

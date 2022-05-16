@@ -3,7 +3,7 @@ import org.gradle.plugin.use.PluginDependenciesSpec
 import org.gradle.plugin.use.PluginDependencySpec
 
 /**
- * @author makosnic on 01.05.2022
+ * @author maksonic on 01.05.2022
  */
 fun PluginDependenciesSpec.androidApp(): PluginDependencySpec =
     id("com.android.application")
@@ -20,5 +20,5 @@ fun PluginDependenciesSpec.hilt(): PluginDependencySpec =
 fun PluginDependenciesSpec.kapt(): PluginDependencySpec =
     id("kotlin-kapt")
 
-fun PluginDependenciesSpec.kotlinParcelize(): PluginDependencySpec =
-    id("kotlin-parcelize")
+fun PluginDependenciesSpec.kotlinSerialization(): PluginDependencySpec =
+    id("kotlinx-serialization")

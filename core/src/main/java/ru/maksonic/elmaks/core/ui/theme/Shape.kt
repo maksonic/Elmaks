@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 /**
- * @author makosnic on 01.05.2022
+ * @author maksonic on 01.05.2022
  */
 val LocalElmaksShape = staticCompositionLocalOf<ElmaksShape> {
     error("No shapes provided")

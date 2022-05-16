@@ -36,6 +36,8 @@ android {
 
 dependencies {
     implementation(project(Module.CORE))
+
     implementation(Lib.Dagger.HILT)
+    implementation(Lib.JetBrains.Coroutines.ANDROID)
     kapt(Lib.Dagger.COMPILER)
 }

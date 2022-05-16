@@ -46,6 +46,7 @@ dependencies {
     implementation(project(Module.DOMAIN))
     implementation(project(Module.SHARED))
 
+    implementation(Lib.Accompanist.SWIPE_REFRESH)
     implementation(Lib.Compose.UI)
     implementation(Lib.Compose.UI_PREVIEW)
     implementation(Lib.Compose.MATERIAL)

@@ -1,7 +1,11 @@
 package ru.maksonic.elmaks.feature.details
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import ru.maksonic.elmaks.feature.details.widget.DetailTopAppBar
 
@@ -23,11 +27,15 @@ fun DetailsScreen(
 
 @Composable
 fun DetailsUiScreen(
-    onNavigateBack: () -> Unit
-) {
-    Scaffold(topBar = {
-        DetailTopAppBar(titleDetailCity = "Город", onNavigateBack)
-    }) {
+    onNavigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    ) {
+    Scaffold(
+        topBar = {
+            DetailTopAppBar(titleDetailCity = "Город", onNavigateBack)
+        },
+        modifier = modifier.systemBarsPadding()
+    ) {
 
     }
 }

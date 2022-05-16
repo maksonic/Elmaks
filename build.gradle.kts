@@ -6,8 +6,8 @@ buildscript {
     dependencies {
         classpath(Build.ToolsGradle.init)
         classpath(Build.HiltGradle.init)
-        classpath(Build.KotlinGradle.init)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Config.kotlinVersion}")
+        classpath(Build.KotlinSerialization.init)
     }
 }
 

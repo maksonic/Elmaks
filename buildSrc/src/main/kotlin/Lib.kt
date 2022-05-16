@@ -1,5 +1,5 @@
 /**
- * @author makosnic on 01.05.2022
+ * @author maksonic on 01.05.2022
  */
 object Lib {
     private const val composeVersion = Config.composeVersion
@@ -13,12 +13,9 @@ object Lib {
     }
 
     object Accompanist {
-        private const val version = "0.24.6-alpha"
-        const val INSETS = "com.google.accompanist:accompanist-insets:$version"
-        const val PAGER = "com.google.accompanist:accompanist-pager:$version"
-        const val NAVIGATION_ANIMATION = "com.google.accompanist:accompanist-navigation-animation:$version"
-        const val NAVIGATION_MATERIAL = "com.google.accompanist:accompanist-navigation-material:$version"
+        private const val version = "0.24.8-beta"
         const val SYSTEM_UI = "com.google.accompanist:accompanist-systemuicontroller:$version"
+        const val SWIPE_REFRESH = "com.google.accompanist:accompanist-swiperefresh:$version"
     }
 
     object Compose {
@@ -37,15 +34,23 @@ object Lib {
     }
 
     object Dagger {
-        private const val version = "2.41"
+        private const val version = "2.42"
         const val HILT = "com.google.dagger:hilt-android:$version"
         const val COMPILER = "com.google.dagger:hilt-compiler:$version"
         const val VIEWMODEL = "androidx.hilt:hilt-navigation-compose:1.0.0"
     }
 
     object JetBrains {
-        private const val version = "1.6.1"
-        const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
+
+        object Coroutines {
+            private const val version = "1.6.1"
+            const val ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
+        }
+
+        object Serialization {
+            private const val version = "1.3.2"
+            const val JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:$version"
+        }
     }
 
     object Lifecycle {

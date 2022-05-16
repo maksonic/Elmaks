@@ -1,7 +1,7 @@
 import org.gradle.api.JavaVersion
 
 /**
- * @author makosnic on 01.05.2022
+ * @author maksonic on 01.05.2022
  */
 object Config {
     const val composeVersion = "1.2.0-alpha08"

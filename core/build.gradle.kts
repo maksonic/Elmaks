@@ -42,10 +42,13 @@ android {
 }
 
 dependencies {
+    implementation(Lib.AndroidX.DATASTORE)
     implementation(Lib.AndroidX.MATERIAL)
     implementation(Lib.Accompanist.SYSTEM_UI)
     implementation(Lib.Compose.UI)
     implementation(Lib.Compose.MATERIAL)
     implementation(Lib.Dagger.HILT)
+    implementation(Lib.Dagger.VIEWMODEL)
+    implementation(Lib.JetBrains.Serialization.JSON)
     kapt(Lib.Dagger.COMPILER)
 }

@@ -1,9 +1,10 @@
-package ru.maksonic.elmaks.data
+package ru.maksonic.elmaks.shared
 
 /**
- * @author makosnic on 01.05.2022
+ * @author maksonic on 06.05.2022
  */
-data class CityData(
+data class CityUi(
+    val kladrId: Long,
     val name: String,
     val postalCode: Long,
     val population: Long,

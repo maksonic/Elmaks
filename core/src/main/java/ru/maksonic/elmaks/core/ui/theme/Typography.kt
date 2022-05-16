@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 /**
- * @author makosnic on 01.05.2022
+ * @author maksonic on 01.05.2022
  */
 val LocalElmaksTypography = staticCompositionLocalOf<ElmaksTypography> {
     error("No font provided")
@@ -24,7 +24,7 @@ data class ElmaksTypography(
 val typography = ElmaksTypography(
     body = TextStyle(
         fontSize = 16.sp,
-        fontWeight = FontWeight.Normal
+        fontWeight = FontWeight.Medium
     ),
     title = TextStyle(
         fontSize = 18.sp,
@@ -40,7 +40,7 @@ val typography = ElmaksTypography(
     ),
     display = TextStyle(
         fontSize = 34.sp,
-        fontWeight = FontWeight.Bold
+        fontWeight = FontWeight.Bold,
     ),
     caption = TextStyle(
         fontSize = 14.sp,

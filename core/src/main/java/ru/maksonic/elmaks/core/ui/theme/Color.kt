@@ -4,7 +4,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 /**
- * @author makosnic on 01.05.2022
+ * @author maksonic on 01.05.2022
  */
 val LocalElmaksColors = staticCompositionLocalOf<ElmaksColor> {
     error("No colors provided")
@@ -27,4 +27,5 @@ data class ElmaksColor(
     val primaryText: Color,
     val secondaryText: Color,
     val tertiaryText: Color,
+    val controlNormal: Color
 )

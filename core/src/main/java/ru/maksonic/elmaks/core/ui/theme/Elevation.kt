@@ -5,10 +5,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
- * @author makosnic on 01.05.2022
+ * @author maksonic on 01.05.2022
  */
 val LocalElmaksElevation = staticCompositionLocalOf<ElmaksElevation> {
-    error("No component size provided")
+    error("No elevation provided")
 }
 
 data class ElmaksElevation(
