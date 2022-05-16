@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 typealias CitiesList = Flow<Result<List<CityDomain>>>
 
 interface Repository {
-    fun fetchCitiesList(): CitiesList
+    fun fetchCities(): CitiesList
 }

@@ -2,7 +2,9 @@ package ru.maksonic.elmaks.feature.main.update
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.maksonic.elmaks.core.ElmRuntime
-import ru.maksonic.elmaks.feature.main.model.MainFeature
+import ru.maksonic.elmaks.feature.main.model.Cmd
+import ru.maksonic.elmaks.feature.main.model.Model
+import ru.maksonic.elmaks.feature.main.model.Msg
 import ru.maksonic.elmaks.feature.main.program.FetchCitiesProgram
 import ru.maksonic.elmaks.feature.main.program.SwitchThemeProgram
 import javax.inject.Inject
@@ -10,42 +12,43 @@ import javax.inject.Inject
 /**
  * @author maksonic on 01.05.2022
  */
-typealias Update = Pair<MainFeature.Model, Set<MainFeature.Cmd>>
+typealias Update = Pair<Model, Set<Cmd>>
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     fetchCitiesProgram: FetchCitiesProgram,
     switchThemeProgram: SwitchThemeProgram,
-) : ElmRuntime<MainFeature.Model, MainFeature.Msg, MainFeature.Cmd>(
-    initialModel = MainFeature.Model(isLoading = true),
-    initialCmd = setOf(MainFeature.Cmd.LoadCityList),
+) : ElmRuntime<Model, Msg, Cmd>(
+    initialModel = Model(isLoading = true),
+    initialCmd = setOf(Cmd.LoadCities),
     subscriptions = listOf(fetchCitiesProgram, switchThemeProgram)
 ) {
-    override fun update(msg: MainFeature.Msg, model: MainFeature.Model): Update =
+    override fun update(msg: Msg, model: Model): Update =
         when (msg) {
-            is MainFeature.Msg.FetchCityList -> fetchingCityList(model)
-            is MainFeature.Msg.FetchedSuccess -> fetchingSuccess(model, msg)
-            is MainFeature.Msg.OnSwipeRefreshList -> refreshingCityList(model)
-            is MainFeature.Msg.RefreshedSuccess -> refreshedSuccess(model, msg)
-            is MainFeature.Msg.Error -> errorData(model, msg)
-            is MainFeature.Msg.OnCityClicked -> navigateToCity(model, msg)
-            is MainFeature.Msg.SearchProcess -> searchingProcess(model)
-            is MainFeature.Msg.ShowFilterDialog -> model to emptySet()
-            is MainFeature.Msg.OnSwitchTheme -> switchTheme(model, msg)
+            is Msg.Ui.FetchCityList -> fetchingCityList(model)
+            is Msg.Internal.FetchedSuccess -> fetchingSuccess(model, msg)
+            is Msg.Ui.OnSwipeRefreshList -> refreshingCityList(model)
+            is Msg.Internal.RefreshedSuccess -> refreshedSuccess(model, msg)
+            is Msg.Internal.Error -> errorData(model, msg)
+            is Msg.Ui.OnCityClicked -> navigateToCity(model, msg)
+            is Msg.Ui.SearchProcess -> searchingProcess(model)
+            is Msg.Ui.ShowSortDialog -> model to emptySet()
+            is Msg.Ui.OnSwitchTheme -> switchTheme(model, msg)
+            is Msg.Ui.SortFromAtoZ -> sortCitiesFromAtoZ(model)
+            is Msg.Ui.SortFromZtoA -> sortCitiesFromZtoA(model)
+            is Msg.Ui.SortByPostalCodeAscending -> sortByPostalCodeAscending(model)
+            is Msg.Ui.SortByPostalCodeDescending -> sortByPostalCodeDescending(model)
         }
 
-    private fun fetchingCityList(model: MainFeature.Model): Update =
+    private fun fetchingCityList(model: Model): Update =
         model.copy(
             isLoading = true,
             isSuccessLoading = false,
             isRefreshing = false,
             isErrorLoading = false
-        ) to setOf(MainFeature.Cmd.LoadCityList)
+        ) to setOf(Cmd.LoadCities)
 
-    private fun fetchingSuccess(
-        model: MainFeature.Model,
-        msg: MainFeature.Msg.FetchedSuccess
-    ): Update =
+    private fun fetchingSuccess(model: Model, msg: Msg.Internal.FetchedSuccess): Update =
         model.copy(
             isLoading = false,
             isSuccessLoading = true,
@@ -54,15 +57,12 @@ class MainViewModel @Inject constructor(
             cityList = msg.fetchedCityList
         ) to emptySet()
 
-    private fun refreshingCityList(model: MainFeature.Model): Update =
+    private fun refreshingCityList(model: Model): Update =
         model.copy(isLoading = false, isRefreshing = true, isErrorLoading = false) to setOf(
-            MainFeature.Cmd.RefreshCityList
+            Cmd.RefreshCites
         )
 
-    private fun refreshedSuccess(
-        model: MainFeature.Model,
-        msg: MainFeature.Msg.RefreshedSuccess
-    ): Update =
+    private fun refreshedSuccess(model: Model, msg: Msg.Internal.RefreshedSuccess): Update =
         model.copy(
             isLoading = false,
             isSuccessLoading = true,
@@ -71,7 +71,7 @@ class MainViewModel @Inject constructor(
             cityList = msg.refreshedCityList
         ) to emptySet()
 
-    private fun errorData(model: MainFeature.Model, msg: MainFeature.Msg.Error): Update =
+    private fun errorData(model: Model, msg: Msg.Internal.Error): Update =
         model.copy(
             isLoading = false,
             isSuccessLoading = false,
@@ -80,65 +80,23 @@ class MainViewModel @Inject constructor(
             errorFetchingMsg = msg.errorMsg
         ) to emptySet()
 
-    private fun navigateToCity(
-        model: MainFeature.Model,
-        msg: MainFeature.Msg.OnCityClicked
-    ): Update =
-        model to setOf(MainFeature.Cmd.Navigation.ToCity(msg.city))
+    private fun navigateToCity(model: Model, msg: Msg.Ui.OnCityClicked): Update =
+        model to setOf(Cmd.Navigation.ToCity(msg.city))
 
-    private fun searchingProcess(model: MainFeature.Model): Update =
-        model to emptySet()
+    private fun searchingProcess(model: Model): Update = model to emptySet()
 
-    private fun switchTheme(model: MainFeature.Model, msg: MainFeature.Msg.OnSwitchTheme): Update {
-        return model to setOf(MainFeature.Cmd.SwitchTheme(msg.isDarkMode))
-    }
+    private fun switchTheme(model: Model, msg: Msg.Ui.OnSwitchTheme): Update =
+        model to setOf(Cmd.SwitchTheme(msg.isDarkMode))
+
+    private fun sortCitiesFromAtoZ(model: Model): Update =
+        model.copy(cityList = model.cityList.sortedBy { it.name }) to emptySet()
+
+    private fun sortCitiesFromZtoA(model: Model): Update =
+        model.copy(cityList = model.cityList.sortedByDescending { it.name }) to emptySet()
+
+    private fun sortByPostalCodeAscending(model: Model): Update =
+        model.copy(cityList = model.cityList.sortedBy { it.postalCode }) to emptySet()
+
+    private fun sortByPostalCodeDescending(model: Model): Update =
+        model.copy(cityList = model.cityList.sortedByDescending { it.postalCode }) to emptySet()
 }
-
-
-/*
-@HiltViewModel
-class MainViewModel @Inject constructor(
-    private val fetchCitiesUseCase: FetchCitiesUseCase,
-    private val filterCitiesUseCase: FilterCitiesUseCase,
-    private val themeSetting: AppThemeSetting,
-    private val mapper: CityDomainToUiMapper,
-) : ViewModel() {
-
-    private var _list = mutableStateOf(emptyList<CityUi>())
-    val list: State<List<CityUi>> = _list
-
-    val searchable = mutableStateOf(TextFieldValue(""))
-
-    init {
-        viewModelScope.launch {
-            val data = mapper.mapToList(fetchCitiesUseCase())
-            _list.value = data
-        }
-    }
-
-    fun setTheme(isDark: Boolean) {
-        viewModelScope.launch {
-            themeSetting.setTheme(isDark)
-        }
-    }
-
-    fun searchCity(entered: String) {
-        _list.value.filter { it.name == entered }
-    }
-
-    fun filterFromAtoZ() = viewModelScope.launch {
-        _list.value = mapper.mapToList(filterCitiesUseCase.filterFromAtoZ())
-    }
-
-    fun filterFromZtoA() = viewModelScope.launch {
-        _list.value = mapper.mapToList(filterCitiesUseCase.filterFromZtoA())
-    }
-
-    fun filterPostalCodeAscending() = viewModelScope.launch {
-        _list.value = mapper.mapToList(filterCitiesUseCase.filterPostalCodeAscending())
-    }
-
-    fun filterPostalCodeDescending() = viewModelScope.launch {
-        _list.value = mapper.mapToList(filterCitiesUseCase.filterPostalCodeDescending())
-    }
-}*/

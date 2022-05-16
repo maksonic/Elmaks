@@ -4,7 +4,10 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Icon
 import androidx.compose.material.LocalTextStyle
@@ -15,9 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -25,11 +26,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
 import ru.maksonic.elmaks.core.ui.widget.IconActionButton
-import ru.maksonic.elmaks.feature.main.update.MainViewModel
 import ru.maksonic.elmaks.feature.main.view.Message
 import ru.maksonic.elmaks.shared.R.drawable
 import ru.maksonic.elmaks.shared.R.string
@@ -40,12 +39,10 @@ import ru.maksonic.elmaks.shared.R.string
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun MainTopAppBar(
-    msg: Message,
+    sendMsg: Message,
     modifier: Modifier = Modifier,
     searchable: MutableState<TextFieldValue>,
-    isDarkMode: State<Boolean>,
-    viewModel: MainViewModel
-
+    isDarkMode: State<Boolean>
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var filterBtnVisibility by remember { mutableStateOf(true) }
@@ -60,10 +57,9 @@ internal fun MainTopAppBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             MainAppBarNavIcon(
-                msg = msg,
+                sendMsg = sendMsg,
                 visible = filterBtnVisibility,
                 cancelSearch = { cancelSearch(searchable, keyboardController) },
-                viewModel = viewModel,
                 isDarkMode = isDarkMode,
             )
             Row(
@@ -120,7 +116,6 @@ internal fun MainTopAppBar(
                         }
                     }
                 )
-                //    Spacer(modifier.weight(1f))
                 //Btn for clearing entered symbols in text field
                 AnimatedVisibility(
                     visible = !filterBtnVisibility,
@@ -134,13 +129,13 @@ internal fun MainTopAppBar(
                             painter = painterResource(id = drawable.ic_round_clear_24),
                             tint = ElmaksTheme.color.controlNormal.copy(alpha = 0.35f),
                             contentDescription = stringResource(
-                                id = string.cd_scr_main_filter_btn
+                                id = string.cd_scr_main_sorted_btn
                             )
                         )
                     }
                 }
             }
-            ButtonFilterSearchList(filterBtnVisibility, viewModel)
+            ButtonSortedList(filterBtnVisibility, sendMsg)
         }
     }
 }

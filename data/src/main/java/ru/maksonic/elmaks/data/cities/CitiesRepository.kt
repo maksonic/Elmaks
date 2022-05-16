@@ -32,7 +32,7 @@ class CitiesRepository @Inject constructor(
         private const val FAKE_DELAY = 3000L
     }
 
-    override fun fetchCitiesList(): CitiesList = flow<Result<List<CityDomain>>> {
+    override fun fetchCities(): CitiesList = flow<Result<List<CityDomain>>> {
         delay(FAKE_DELAY)
         val conversion = jsonConverter.convertAssertJsonToString(CITIES)
 

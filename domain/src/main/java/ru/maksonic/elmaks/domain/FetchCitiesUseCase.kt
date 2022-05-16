@@ -10,7 +10,7 @@ class FetchCitiesUseCase @Inject constructor(
     private val repository: Repository
 ) : BaseUseCase<CitiesList> {
 
-    override fun invoke(): CitiesList = repository.fetchCitiesList().transform { oldCitiesFlow ->
+    override fun invoke(): CitiesList = repository.fetchCities().transform { oldCitiesFlow ->
         oldCitiesFlow.onSuccess { cities ->
             val filteredCities = cities
                 .filter { it.name.isNotEmpty() }

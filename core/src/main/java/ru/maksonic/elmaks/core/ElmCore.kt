@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 /**
  * @author maksonic on 12.05.2022
  */
-interface FeatureModel
+interface StateModel
 interface Message
 interface Command
 
@@ -17,14 +17,14 @@ interface ElmProgram<M : Message, C : Command> {
     suspend fun execute(cmd: C, consumer: (M) -> Unit)
 }
 
-interface Sandbox<T : FeatureModel, M : Message, C : Command> {
+interface Sandbox<T : StateModel, M : Message, C : Command> {
     fun sendMsg(msg: M)
     fun update(msg: M, model: T): Pair<T, Set<C>>
 }
 
-abstract class ElmRuntime<T : FeatureModel, M : Message, C : Command>(
-    initialModel: T,
-    initialCmd: Set<C> = emptySet(),
+abstract class ElmRuntime<T : StateModel, M : Message, C : Command>(
+    private val initialModel: T,
+    private val initialCmd: Set<C> = emptySet(),
     private val subscriptions: List<ElmProgram<M, C>>
 ) : ViewModel(), Sandbox<T, M, C> {
 

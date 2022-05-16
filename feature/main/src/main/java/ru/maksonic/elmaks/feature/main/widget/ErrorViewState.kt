@@ -7,21 +7,22 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
-import ru.maksonic.elmaks.feature.main.model.MainFeature
-import ru.maksonic.elmaks.feature.main.view.Message
-import ru.maksonic.elmaks.feature.main.view.Model
 import ru.maksonic.elmaks.feature.main.R
+import ru.maksonic.elmaks.feature.main.model.Model
+import ru.maksonic.elmaks.feature.main.model.Msg
+import ru.maksonic.elmaks.feature.main.view.Message
 
 /**
  * @author maksonic on 12.05.2022
  */
 @Composable
-internal fun ErrorViewState(model: Model, msg: Message, modifier: Modifier = Modifier) {
+internal fun ErrorViewState(model: State<Model>, sendMsg: Message, modifier: Modifier = Modifier) {
     Box(
         modifier
             .fillMaxSize()
@@ -47,7 +48,7 @@ internal fun ErrorViewState(model: Model, msg: Message, modifier: Modifier = Mod
             Spacer(modifier.height(ElmaksTheme.padding.dp32))
 
             Button(
-                onClick = { msg(MainFeature.Msg.FetchCityList) },
+                onClick = { sendMsg(Msg.Ui.FetchCityList) },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = ElmaksTheme.color.primary,
                     contentColor = ElmaksTheme.color.onPrimary

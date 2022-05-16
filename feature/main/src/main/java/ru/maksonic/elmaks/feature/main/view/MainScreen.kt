@@ -18,10 +18,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import kotlinx.coroutines.delay
 import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
 import ru.maksonic.elmaks.core.ui.widget.LoadingViewState
-import ru.maksonic.elmaks.feature.main.model.MainFeature
+import ru.maksonic.elmaks.feature.main.model.Msg
+import ru.maksonic.elmaks.feature.main.model.Model
 import ru.maksonic.elmaks.feature.main.update.MainViewModel
 import ru.maksonic.elmaks.feature.main.widget.CityItem
 import ru.maksonic.elmaks.feature.main.widget.ErrorViewState
@@ -32,12 +32,11 @@ import ru.maksonic.elmaks.feature.main.widget.topbar.MainTopAppBar
 /**
  * @author maksonic on 01.05.2022
  */
-internal typealias Message = (MainFeature.Msg) -> Unit
-internal typealias Model = State<MainFeature.Model>
+internal typealias Message = (Msg) -> Unit
 
 @Preview
 @Composable
-fun MainScreenPreview() {
+private fun MainScreenPreview() {
     MainScreen({})
 }
 
@@ -45,21 +44,21 @@ fun MainScreenPreview() {
 fun MainScreen(
     onNavigateToDetails: () -> Unit,
     isDarkMode: State<Boolean> = mutableStateOf(false),
-    viewModel: MainViewModel = hiltViewModel()
+    mainViewModel: MainViewModel = hiltViewModel()
 ) {
-    MainUiScreen(onNavigateToDetails, viewModel, isDarkMode)
+    MainUiScreen(onNavigateToDetails, mainViewModel, isDarkMode)
 }
 
 @Composable
-fun MainUiScreen(
+private fun MainUiScreen(
     onNavigateToDetails: () -> Unit,
     viewModel: MainViewModel,
     isDarkMode: State<Boolean>,
     modifier: Modifier = Modifier
 ) {
-    val searchable = remember { mutableStateOf(TextFieldValue("")) }
     val model = viewModel.featureModel.collectAsState()
-    val msg = viewModel::sendMsg
+    val sendMsg = viewModel::sendMsg
+    val searchable = remember { mutableStateOf(TextFieldValue(model.value.inputSearchCity)) }
 
     Scaffold(
         topBar = {
@@ -69,9 +68,8 @@ fun MainUiScreen(
                 }
                 model.value.isSuccessLoading -> {
                     MainTopAppBar(
-                        msg = msg,
+                        sendMsg = sendMsg,
                         searchable = searchable,
-                        viewModel = viewModel,
                         isDarkMode = isDarkMode
                     )
                 }
@@ -83,50 +81,19 @@ fun MainUiScreen(
         Column(modifier.padding(paddingValues)) {
             when {
                 model.value.isLoading -> LoadingViewState(modifier.padding())
-                model.value.isSuccessLoading -> SuccessCityListViewState(model, msg)
-                model.value.isErrorLoading -> ErrorViewState(model, msg)
+                model.value.isSuccessLoading -> SuccessCityListViewState(model, sendMsg)
+                model.value.isErrorLoading -> ErrorViewState(model, sendMsg)
             }
         }
-        /*val citiesList = viewModel.list.value
-        var filteredList: List<CityUi>
-
-        LazyColumn(modifier.padding(it)) {
-
-            filteredList = if (searchable.value.text.isEmpty()) {
-                citiesList
-            } else {
-                val resultList = mutableListOf<CityUi>()
-                for (city in citiesList) {
-                    if (
-                        city.name.lowercase().contains(searchable.value.text.lowercase()) ||
-                        city.postalCode.toString().contains(searchable.value.text)
-                    ) {
-                        resultList.add(city)
-                    }
-                }
-                resultList
-            }
-
-            item {
-                MainHeader(searchable = searchable)
-            }
-            if (filteredList.isNotEmpty()) {
-                items(filteredList) { city ->
-                    CityItem(cityDomain = city, selectCity = onNavigateToDetails)
-                }
-            } else {
-                item { EmptySearchWidget() }
-            }
-        }*/
     }
 }
 
 @Composable
-fun SuccessCityListViewState(model: Model, msg: Message) {
+private fun SuccessCityListViewState(model: State<Model>, sendMsg: Message) {
 
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing = model.value.isRefreshing),
-        onRefresh = { msg(MainFeature.Msg.OnSwipeRefreshList) },
+        onRefresh = { sendMsg(Msg.Ui.OnSwipeRefreshList) },
         indicator = { state, trigger ->
             SwipeRefreshIndicator(
                 state = state,
@@ -139,7 +106,7 @@ fun SuccessCityListViewState(model: Model, msg: Message) {
     ) {
         LazyColumn {
             item {
-                MainHeader(searchable = mutableStateOf(TextFieldValue("")))
+                MainHeader(searchable = mutableStateOf(TextFieldValue(model.value.inputSearchCity)))
             }
             items(model.value.cityList) { city ->
                 CityItem(city = city, selectCity = {})
@@ -147,29 +114,6 @@ fun SuccessCityListViewState(model: Model, msg: Message) {
         }
     }
 }
-/*  filteredList = if (searchable.value.text.isEmpty()) {
-      citiesList
-  } else {
-      val resultList = mutableListOf<CityUi>()
-      for (city in citiesList) {
-          if (
-              city.name.lowercase().contains(searchable.value.text.lowercase()) ||
-              city.postalCode.toString().contains(searchable.value.text)
-          ) {
-              resultList.add(city)
-          }
-      }
-      resultList
-  }
-*/
-
-/*if (filteredList.isNotEmpty()) {
-    items(filteredList) { city ->
-        CityItem(city = city, selectCity = onNavigateToDetails)
-    }
-} else {
-    item { EmptySearchWidget() }
-}*/
 
 @Composable
 fun EmptySearchWidget(modifier: Modifier = Modifier) {

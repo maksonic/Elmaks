@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.*
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
@@ -18,14 +21,15 @@ import androidx.compose.ui.unit.dp
 import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
 import ru.maksonic.elmaks.core.ui.widget.dropdown.CustomDropdownMenu
 import ru.maksonic.elmaks.core.ui.widget.dropdown.CustomDropdownMenuItem
-import ru.maksonic.elmaks.feature.main.update.MainViewModel
+import ru.maksonic.elmaks.feature.main.model.Msg
+import ru.maksonic.elmaks.feature.main.view.Message
 import ru.maksonic.elmaks.shared.R
 
 /**
  * @author maksonic on 02.05.2022
  */
 @Composable
-internal fun DropdownItem(title: String, icon: Painter, modifier: Modifier = Modifier) {
+private fun SortingDropdownItem(title: String, icon: Painter, modifier: Modifier = Modifier) {
     Row(
         modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
@@ -45,9 +49,9 @@ internal fun DropdownItem(title: String, icon: Painter, modifier: Modifier = Mod
 }
 
 @Composable
-fun FilterDropdownMenu(
+internal fun SortingDropdownMenu(
     popupThemeMenu: MutableState<Boolean>,
-    viewModel: MainViewModel,
+    sendMsg: Message,
     modifier: Modifier = Modifier,
 ) {
     val dp8 = ElmaksTheme.padding.dp8
@@ -69,11 +73,11 @@ fun FilterDropdownMenu(
     ) {
         CustomDropdownMenuItem(
             onClick = {
-            //    viewModel.filterFromAtoZ()
+                sendMsg(Msg.Ui.SortFromAtoZ)
                 popupThemeMenu.value = false
             },
         ) {
-            DropdownItem(
+            SortingDropdownItem(
                 title = stringResource(id = R.string.sorted_a_z),
                 icon = painterResource(id = R.drawable.ic_sorted_a_z)
             )
@@ -82,11 +86,11 @@ fun FilterDropdownMenu(
 
         CustomDropdownMenuItem(
             onClick = {
-          //      viewModel.filterFromZtoA()
+                sendMsg(Msg.Ui.SortFromZtoA)
                 popupThemeMenu.value = false
             },
         ) {
-            DropdownItem(
+            SortingDropdownItem(
                 title = stringResource(id = R.string.sorted_z_a),
                 icon = painterResource(id = R.drawable.ic_sorted_z_a)
             )
@@ -95,11 +99,11 @@ fun FilterDropdownMenu(
 
         CustomDropdownMenuItem(
             onClick = {
-            //    viewModel.filterPostalCodeAscending()
+                sendMsg(Msg.Ui.SortByPostalCodeAscending)
                 popupThemeMenu.value = false
             },
         ) {
-            DropdownItem(
+            SortingDropdownItem(
                 title = stringResource(id = R.string.sorted_code_asc),
                 icon = painterResource(id = R.drawable.ic_sorted_code_to_up)
             )
@@ -109,11 +113,11 @@ fun FilterDropdownMenu(
 
         CustomDropdownMenuItem(
             onClick = {
-             //   viewModel.filterPostalCodeDescending()
+                sendMsg(Msg.Ui.SortByPostalCodeDescending)
                 popupThemeMenu.value = false
             },
         ) {
-            DropdownItem(
+            SortingDropdownItem(
                 title = stringResource(id = R.string.sorted_code_desc),
                 icon = painterResource(id = R.drawable.ic_sorted_code_to_down)
             )

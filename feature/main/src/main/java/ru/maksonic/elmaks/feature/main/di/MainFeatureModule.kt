@@ -1,11 +1,10 @@
-package ru.maksonic.elmaks.feature.main.model
+package ru.maksonic.elmaks.feature.main.di
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.maksonic.elmaks.core.store.AppThemeSetting
-import ru.maksonic.elmaks.core.store.ResourceProvider
 import ru.maksonic.elmaks.domain.FetchCitiesUseCase
 import ru.maksonic.elmaks.feature.main.program.FetchCitiesProgram
 import ru.maksonic.elmaks.feature.main.program.SwitchThemeProgram
