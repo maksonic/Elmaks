@@ -52,7 +52,8 @@ dependencies {
     implementation(project(Module.DATA))
     implementation(project(Module.DOMAIN))
     implementation(project(Module.SHARED))
-    implementation(project(Module.NAVIGATION))
+    implementation(project(Module.Navigation.API))
+    implementation(project(Module.Navigation.IMPL))
 
     implementation(project(Feature.DETAILS))
     implementation(project(Feature.MAIN))

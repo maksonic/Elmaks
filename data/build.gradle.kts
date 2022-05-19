@@ -4,6 +4,8 @@ plugins {
     kotlinSerialization()
     hilt()
     kapt()
+    ksp()
+
 }
 
 android {
@@ -42,4 +44,8 @@ dependencies {
     implementation(Lib.JetBrains.Serialization.JSON)
     implementation(Lib.Dagger.HILT)
     kapt(Lib.Dagger.COMPILER)
+    implementation(Lib.Room.KTX)
+    implementation(Lib.Room.RUNTIME)
+    ksp(Lib.Room.COMPILER)
+
 }

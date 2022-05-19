@@ -5,17 +5,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ru.maksonic.elmaks.feature.details.DetailsViewModel
 import ru.maksonic.elmaks.shared.R.*
 
 /**
  * @author maksonic on 27.04.2022
  */
 @Composable
-fun DetailTopAppBar(titleDetailCity: String, backPressed: () -> Unit) {
+fun DetailTopAppBar(titleDetailCity: String, viewModel: DetailsViewModel) {
     TopAppBar(
         title = { Text(text = titleDetailCity) },
         navigationIcon = {
-            IconButton(onClick = backPressed) {
+            IconButton(onClick = { viewModel.backPressed() }) {
                 Icon(
                     painter = painterResource(id = drawable.ic_round_arrow_back_24),
                     tint = MaterialTheme.colors.onBackground,

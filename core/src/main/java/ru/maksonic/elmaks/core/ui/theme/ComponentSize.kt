@@ -15,12 +15,12 @@ data class ElmaksComponentSize(
     val btnNav: Dp,
     val btnPrimaryHeight: Dp,
     val circularProgressIndicatorStrokeWidth: Dp,
-    val searchableLength: Int
+    val enteredMaxLength: Int
 )
 
 val componentSize = ElmaksComponentSize(
     btnNav = 24.dp,
     btnPrimaryHeight = 54.dp,
     circularProgressIndicatorStrokeWidth = 5.dp,
-    searchableLength = 50
+    enteredMaxLength = 50
 )

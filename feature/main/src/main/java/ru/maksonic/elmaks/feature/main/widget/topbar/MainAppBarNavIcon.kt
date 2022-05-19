@@ -3,6 +3,8 @@ package ru.maksonic.elmaks.feature.main.widget.topbar
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
@@ -15,10 +17,12 @@ import ru.maksonic.elmaks.shared.R.string
 /**
  * @author maksonic on 01.05.2022
  */
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun MainAppBarNavIcon(
     sendMsg: Message,
-    visible: Boolean, cancelSearch: () -> Unit,
+    visible: Boolean,
+    keyboardController: SoftwareKeyboardController?,
     isDarkMode: State<Boolean>,
 ) {
     if (visible) {
@@ -32,7 +36,7 @@ internal fun MainAppBarNavIcon(
             )
         }
     } else {
-        IconActionButton(onClick = cancelSearch) {
+        IconActionButton(onClick = { sendMsg(Msg.Ui.ClearSearchingField(keyboardController)) }) {
             Icon(
                 painter = painterResource(id = drawable.ic_round_arrow_back_24),
                 tint = ElmaksTheme.color.controlNormal,

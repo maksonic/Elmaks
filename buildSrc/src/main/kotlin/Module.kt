@@ -6,5 +6,9 @@ object Module {
     const val DATA = ":data"
     const val DOMAIN = ":domain"
     const val SHARED = ":shared"
-    const val NAVIGATION = ":navigation"
+
+    object Navigation {
+        const val API = ":navigation:api"
+        const val IMPL = ":navigation:impl"
+    }
 }

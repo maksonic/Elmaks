@@ -22,7 +22,7 @@ import ru.maksonic.elmaks.shared.CityUi
  */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal fun CityItem(modifier: Modifier = Modifier, selectCity: () -> Unit, city: CityUi) {
+internal fun CityItem(selectCity: () -> Unit, city: CityUi, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .fillMaxWidth()

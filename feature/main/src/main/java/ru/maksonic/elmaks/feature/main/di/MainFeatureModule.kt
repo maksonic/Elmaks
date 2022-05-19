@@ -7,7 +7,9 @@ import dagger.hilt.components.SingletonComponent
 import ru.maksonic.elmaks.core.store.AppThemeSetting
 import ru.maksonic.elmaks.domain.FetchCitiesUseCase
 import ru.maksonic.elmaks.feature.main.program.FetchCitiesProgram
+import ru.maksonic.elmaks.feature.main.program.NavigationProgram
 import ru.maksonic.elmaks.feature.main.program.SwitchThemeProgram
+import ru.maksonic.elmaks.navigation.api.Navigator
 import ru.maksonic.elmaks.shared.CityDomainToUiMapper
 import javax.inject.Singleton
 
@@ -29,4 +31,9 @@ object MainFeatureModule {
     @Provides
     fun provideSwitchThemeProgram(themeSetting: AppThemeSetting): SwitchThemeProgram =
         SwitchThemeProgram.Base(themeSetting)
+
+    @Singleton
+    @Provides
+    fun provideNavigationProgram(navigator: Navigator): NavigationProgram =
+        NavigationProgram.Base(navigator)
 }

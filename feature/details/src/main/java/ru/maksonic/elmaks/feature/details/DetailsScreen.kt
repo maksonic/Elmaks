@@ -1,12 +1,12 @@
 package ru.maksonic.elmaks.feature.details
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import ru.maksonic.elmaks.feature.details.widget.DetailTopAppBar
 
 /**
@@ -15,24 +15,24 @@ import ru.maksonic.elmaks.feature.details.widget.DetailTopAppBar
 @Preview
 @Composable
 fun DetailsScreenPreview() {
-    DetailsScreen({})
+    DetailsScreen()
 }
 
 @Composable
-fun DetailsScreen(
-    onNavigateBack: () -> Unit
-) {
-    DetailsUiScreen(onNavigateBack)
+fun DetailsScreen(viewModel: DetailsViewModel = hiltViewModel(), id: Long = 7) {
+    DetailsUiScreen(viewModel, id = id)
 }
 
 @Composable
 fun DetailsUiScreen(
-    onNavigateBack: () -> Unit,
+    viewModel: DetailsViewModel,
     modifier: Modifier = Modifier,
-    ) {
+    id: Long,
+) {
+    val cityName = viewModel.cityName.collectAsState()
     Scaffold(
         topBar = {
-            DetailTopAppBar(titleDetailCity = "Город", onNavigateBack)
+            DetailTopAppBar(titleDetailCity = id.toString(), viewModel)
         },
         modifier = modifier.systemBarsPadding()
     ) {

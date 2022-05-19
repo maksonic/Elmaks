@@ -12,6 +12,6 @@ sealed class Cmd : Command {
     data class SwitchTheme(val isDarkMode: Boolean) : Cmd()
 
     sealed class Navigation : Cmd() {
-        data class ToCity(val process: (CityUi) -> Unit) : Navigation()
+        data class ToCity(val cityId: Long) : Navigation()
     }
 }

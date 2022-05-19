@@ -6,8 +6,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.maksonic.elmaks.core.data.AssetsReader
-import ru.maksonic.elmaks.core.data.JsonConverter
 import ru.maksonic.elmaks.core.store.AppDataStore
 import ru.maksonic.elmaks.core.store.AppThemeSetting
 import ru.maksonic.elmaks.core.store.ResourceProvider
@@ -36,14 +34,4 @@ object CoreModule {
         dataStore: AppDataStore
     ): AppThemeSetting =
         AppThemeSetting.Base(context, dataStore)
-
-    @Singleton
-    @Provides
-    fun provideAssetsReader(@ApplicationContext context: Context): AssetsReader =
-        AssetsReader.Reader(context)
-
-    @Singleton
-    @Provides
-    fun provideJsonConverter(assetsReader: AssetsReader): JsonConverter =
-        JsonConverter.Converter(assetsReader)
 }

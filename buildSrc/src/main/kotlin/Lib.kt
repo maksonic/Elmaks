@@ -57,6 +57,14 @@ object Lib {
         const val RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha02"
     }
 
+    object Room {
+        private const val version = "2.4.2"
+        const val COMPILER = "androidx.room:room-compiler:$version"
+        const val KTX = "androidx.room:room-ktx:$version"
+        const val RUNTIME = "androidx.room:room-runtime:$version"
+
+    }
+
     object Test {
         object Compose {
             const val UI = "androidx.compose.ui:ui-test-junit4:$composeVersion"

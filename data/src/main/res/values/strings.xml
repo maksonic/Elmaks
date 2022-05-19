@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_failed_loading">Не удалось загрузить данные</string>
+    <string name="db_name">city-db</string>
+    <string name="error_failed_cloud_fetching">Не удалось загрузить данные из сети!</string>
+    <string name="error_failed_cache_fetching">Не удалось загрузить данные из кеша!</string>
 </resources>

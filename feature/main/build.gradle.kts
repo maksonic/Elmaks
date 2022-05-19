@@ -45,6 +45,7 @@ dependencies {
     implementation(project(Module.CORE))
     implementation(project(Module.DOMAIN))
     implementation(project(Module.SHARED))
+    implementation(project(Module.Navigation.API))
 
     implementation(Lib.Accompanist.SWIPE_REFRESH)
     implementation(Lib.Compose.UI)
