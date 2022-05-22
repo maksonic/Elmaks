@@ -36,14 +36,14 @@ object DataModule {
     @Singleton
     @Provides
     fun provideCitiesRepository(
-        baseCloudDataSource: FakeCloudDataSource,
-        baseCacheDataSource: CitiesCacheDataSource,
+        cloudDataSource: FakeCloudDataSource,
+        cacheDataSource: CitiesCacheDataSource,
         cloudMapper: CityCloudToDataMapper,
         cacheMapper: CityCacheToDataMapper,
         dataToDomainMapper: CityDataToDomainMapper
     ): Repository<CityDomain> = CitiesRepository(
-        baseCloudDataSource = baseCloudDataSource,
-        baseCacheDataSource = baseCacheDataSource,
+        cloudDataSource = cloudDataSource,
+        cacheDataSource = cacheDataSource,
         cloudMapper = cloudMapper,
         cacheMapper = cacheMapper,
         dataToDomainMapper = dataToDomainMapper

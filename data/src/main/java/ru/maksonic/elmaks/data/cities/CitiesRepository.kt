@@ -14,14 +14,14 @@ import javax.inject.Inject
  * @author maksonic on 01.05.2022
  */
 class CitiesRepository @Inject constructor(
-    baseCloudDataSource: FakeCloudDataSource,
-    baseCacheDataSource: CitiesCacheDataSource,
+    cloudDataSource: FakeCloudDataSource,
+    cacheDataSource: CitiesCacheDataSource,
     cloudMapper: CityCloudToDataMapper,
     cacheMapper: CityCacheToDataMapper,
     dataToDomainMapper: CityDataToDomainMapper
 ) : AbstractRepository<CityCloud, CityCache, CityData, CityDomain>(
-    baseCloudDataSource = baseCloudDataSource,
-    baseCacheDataSource = baseCacheDataSource,
+    baseCloudDataSource = cloudDataSource,
+    baseCacheDataSource = cacheDataSource,
     cloudMapper = cloudMapper,
     cacheMapper = cacheMapper,
     dataToDomainMapper = dataToDomainMapper

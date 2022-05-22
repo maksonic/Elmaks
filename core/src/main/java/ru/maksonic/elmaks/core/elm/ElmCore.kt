@@ -27,7 +27,7 @@ abstract class ElmRuntime<T : StateModel, M : Message, C : Command>(
     initialModel: T,
     initialCmd: Set<C> = emptySet(),
     private val subscriptions: List<ElmProgram<M, C>> = emptyList(),
-    private val navigator: ElmNavigator
+    private val navigator: ElmNavigator? = null
 ) : ViewModel(), Sandbox<T, M, C> {
 
     private val _model: MutableStateFlow<T> = MutableStateFlow(initialModel)
@@ -55,5 +55,5 @@ abstract class ElmRuntime<T : StateModel, M : Message, C : Command>(
         }
     }
 
-    override fun backPressed(): Boolean = navigator.backPressed()
+    override fun backPressed(): Boolean = navigator?.backPressed() ?: false
 }

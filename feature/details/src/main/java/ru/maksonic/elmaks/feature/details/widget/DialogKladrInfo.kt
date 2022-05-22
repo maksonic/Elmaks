@@ -23,11 +23,10 @@ fun DialogKladrInfo(
     content: @Composable (() -> Unit)? = null
 ) {
     val padding = ElmaksTheme.padding.dp16
+
     if (state.value) {
         AlertDialog(
-            onDismissRequest = {
-                state.value = false
-            },
+            onDismissRequest = { state.value = false },
             title = { DialogTitle() },
             text = content,
             dismissButton = {},
@@ -50,8 +49,7 @@ fun DialogKladrInfo(
                 }
             },
             backgroundColor = ElmaksTheme.color.surface,
-            modifier = modifier
-                .clip(ElmaksTheme.shape.cornerExtra)
+            modifier = modifier.clip(ElmaksTheme.shape.cornerExtra)
         )
     }
 }

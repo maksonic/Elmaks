@@ -114,7 +114,6 @@ internal fun MainTopAppBar(
                                 maxLines = 1
                             )
                             innerTextField()
-
                         }
                     }
                 )
@@ -137,17 +136,7 @@ internal fun MainTopAppBar(
                     }
                 }
             }
-            ButtonSortedList(sortedBtnVisibility, sendMsg)
+            ButtonSortedList(model, sendMsg, sortedBtnVisibility)
         }
     }
 }
-
-/*
-@OptIn(ExperimentalComposeUiApi::class)
-private fun cancelSearch(
-    sendMsg: Message,
-    keyboardController: SoftwareKeyboardController?
-) {
-    sendMsg(Msg.Ui.ClearSearchingField)
-    keyboardController?.hide()
-}*/

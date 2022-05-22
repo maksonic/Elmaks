@@ -21,7 +21,7 @@ abstract class AbstractRepository<
     private val dataToDomainMapper: Mapper<C, D>
 ) : Repository<D> {
 
-    override fun fetchCitiesList(): DataList<D> =
+    override fun fetchDataList(): DataList<D> =
         baseCacheDataSource.fetchCacheList().transform { cacheRequest ->
             cacheRequest.onSuccess { cacheList ->
                 val dataList = cacheMapper.mapToList(cacheList)
@@ -29,7 +29,7 @@ abstract class AbstractRepository<
                 emit(Result.success(domainList))
             }
             cacheRequest.onFailure {
-                fetchCloudCitiesList().collect { cloudRequest ->
+                fetchCloudDataList().collect { cloudRequest ->
                     cloudRequest.onSuccess { cloudLists ->
                         emit(Result.success(cloudLists))
                     }
@@ -40,7 +40,7 @@ abstract class AbstractRepository<
             }
         }
 
-    override fun fetchCloudCitiesList(): DataList<D> =
+    override fun fetchCloudDataList(): DataList<D> =
         baseCloudDataSource.fetchCloudList().transform { cloudRequest ->
             cloudRequest.onSuccess { cloudList ->
                 val dataList = cloudMapper.mapToList(cloudList)

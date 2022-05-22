@@ -13,14 +13,14 @@ class FetchCloudCitiesUseCase @Inject constructor(
     private val repository: Repository<CityDomain>
 ) : BaseUseCase<CitiesList, Nothing> {
     override fun invoke(args: Nothing?): CitiesList =
-        repository.fetchCloudCitiesList().transform { tryToSortList ->
-            tryToSortList.onSuccess { cities ->
+        repository.fetchCloudDataList().transform { tryFetchCloudList ->
+            tryFetchCloudList.onSuccess { cities ->
                 val filteredCities = cities
                     .filter { it.name.isNotEmpty() }
                     .shuffled()
                 emit(Result.success(filteredCities))
             }
-            tryToSortList.onFailure { throwable ->
+            tryFetchCloudList.onFailure { throwable ->
                 emit(Result.failure(throwable))
             }
         }

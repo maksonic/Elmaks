@@ -4,10 +4,12 @@ import androidx.compose.runtime.mutableStateOf
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.maksonic.elmaks.core.elm.ElmRuntime
 import ru.maksonic.elmaks.core.store.AppThemeSetting
+import ru.maksonic.elmaks.core.store.KeyStore
 import ru.maksonic.elmaks.feature.details.model.Cmd
 import ru.maksonic.elmaks.feature.details.model.Model
 import ru.maksonic.elmaks.feature.details.model.Msg
-import ru.maksonic.elmaks.feature.details.program.CityDetailsProgram
+import ru.maksonic.elmaks.feature.details.program.FetchCityDetailsProgram
+import ru.maksonic.elmaks.feature.details.program.GenerateCityCardProgram
 import ru.maksonic.elmaks.navigation.api.CityNavigator
 import javax.inject.Inject
 
@@ -18,16 +20,18 @@ typealias Update = Pair<Model, Set<Cmd>>
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    cityDetailsProgram: CityDetailsProgram,
+    fetchCityDetailsProgram: FetchCityDetailsProgram,
+    generateCityCardProgram: GenerateCityCardProgram,
     appThemeSetting: AppThemeSetting,
+    keyStore: KeyStore,
     navigator: CityNavigator
 ) : ElmRuntime<Model, Msg, Cmd>(
     initialModel = Model(),
     initialCmd = setOf(
-        Cmd.FetchCityInfo(navigator.getArgument("cityId").toLong()),
+        Cmd.FetchCityInfo(navigator.getArgument(keyStore.passedCityIdKey).toLong()),
         Cmd.CardColorBackgroundGeneration(mutableStateOf(appThemeSetting.currentTheme.value))
     ),
-    subscriptions = listOf(cityDetailsProgram),
+    subscriptions = listOf(fetchCityDetailsProgram, generateCityCardProgram),
     navigator = navigator
 ) {
 

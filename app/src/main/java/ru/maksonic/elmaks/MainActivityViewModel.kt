@@ -20,6 +20,5 @@ class MainActivityViewModel @Inject constructor(
             themeSetting.readTheme()
         }
     }
-
     val themeState = themeSetting.currentTheme
 }

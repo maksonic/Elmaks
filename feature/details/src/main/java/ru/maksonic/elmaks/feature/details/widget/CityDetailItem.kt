@@ -30,7 +30,7 @@ internal fun CityDetailItem(title: String, body: String, modifier: Modifier = Mo
             withStyle(
                 style = SpanStyle(
                     color = ElmaksTheme.color.primaryText,
-                    fontSize = 24.sp,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.Normal,
 
                     )

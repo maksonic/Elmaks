@@ -39,7 +39,7 @@ class MainViewModel @Inject constructor(
             is Msg.Internal.RefreshedSuccess -> refreshedSuccess(model, msg)
             is Msg.Internal.Error -> errorData(model, msg)
             is Msg.Ui.OnCityClicked -> navigateToCity(model, msg)
-            is Msg.Ui.ShowSortDialog -> model to emptySet()
+            is Msg.Ui.ShowSortDialog -> showSortDialog(model)
             is Msg.Ui.OnSwitchTheme -> switchTheme(model, msg)
             is Msg.Ui.SortFromAtoZ -> sortCitiesFromAtoZ(model)
             is Msg.Ui.SortFromZtoA -> sortCitiesFromZtoA(model)
@@ -91,6 +91,9 @@ class MainViewModel @Inject constructor(
 
     private fun navigateToCity(model: Model, msg: Msg.Ui.OnCityClicked): Update =
         model to setOf(Cmd.Navigation.ToCity(msg.cityId))
+
+    private fun showSortDialog(model: Model): Update =
+        model.copy(isShowSortDialog = mutableStateOf(true)) to emptySet()
 
     private fun switchTheme(model: Model, msg: Msg.Ui.OnSwitchTheme): Update =
         model to setOf(Cmd.SwitchTheme(msg.isDarkMode))

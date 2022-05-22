@@ -17,7 +17,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     @Inject
     lateinit var cityNavigator: CityNavigator
     @Inject
@@ -41,7 +40,7 @@ class MainActivity : ComponentActivity() {
                     graphBuilder.mainNavGraph(
                         navGraphBuilder = this,
                         navController = navController,
-                        isDarkMode
+                        isDarkMode = isDarkMode
                     )
                 }
             }

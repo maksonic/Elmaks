@@ -12,16 +12,15 @@ import javax.inject.Inject
 /**
  * @Author maksonic on 21.05.2022
  */
-class CityDetailsProgram @Inject constructor(
+class FetchCityDetailsProgram @Inject constructor(
     private val useCase: FetchCityDetailsUseCase,
     private val mapper: CityDomainToUiMapper,
-    private val colorGenerator: ColorGenerator
 ) : ElmProgram<Msg, Cmd> {
 
     override suspend fun execute(cmd: Cmd, consumer: (Msg) -> Unit) {
         when (cmd) {
             is Cmd.FetchCityInfo -> fetchCityId(consumer, cmd)
-            is Cmd.CardColorBackgroundGeneration -> generateCardBackground(consumer, cmd)
+            else -> {}
         }
     }
 
@@ -36,13 +35,5 @@ class CityDetailsProgram @Inject constructor(
                 consumer(Msg.Internal.Error(throwable.message.toString()))
             }
         }
-    }
-
-    private fun generateCardBackground(
-        consumer: (Msg) -> Unit,
-        cmd: Cmd.CardColorBackgroundGeneration
-    ) {
-        val color = colorGenerator.randomColor(cmd.isDarkMode.value)
-        consumer(Msg.Internal.ApplyCityCardColor(mutableStateOf(color)))
     }
 }

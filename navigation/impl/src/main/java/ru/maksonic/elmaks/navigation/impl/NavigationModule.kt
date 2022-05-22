@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ru.maksonic.elmaks.core.store.KeyStore
 import ru.maksonic.elmaks.navigation.api.CityNavigator
 import javax.inject.Singleton
 
@@ -16,7 +17,7 @@ object NavigationModule {
 
     @Singleton
     @Provides
-    fun provideMainGraphBuilding(): GraphBuilder = MainGraph()
+    fun provideMainGraphBuilding(keyStore: KeyStore): GraphBuilder = MainGraph(keyStore)
 
     @Singleton
     @Provides

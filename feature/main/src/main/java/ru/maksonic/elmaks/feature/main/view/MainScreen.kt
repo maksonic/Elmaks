@@ -29,7 +29,6 @@ fun MainScreen(
     isDarkMode: State<Boolean> = mutableStateOf(false),
 ) {
     val viewModel: MainViewModel = hiltViewModel()
-
     MainUiScreen(viewModel, isDarkMode)
 }
 

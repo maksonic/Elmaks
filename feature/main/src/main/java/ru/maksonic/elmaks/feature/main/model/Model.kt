@@ -20,4 +20,5 @@ data class Model(
     val inputSearchCity: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
     val citiesList: List<CityUi> = emptyList(),
     val searchedList: List<CityUi> = emptyList(),
+    val isShowSortDialog: MutableState<Boolean> = mutableStateOf(false)
 ) : StateModel

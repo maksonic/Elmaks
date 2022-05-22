@@ -16,7 +16,6 @@ sealed class Msg : Message {
     sealed class Ui : Msg() {
         data class RetryFetchCityDetails(val cityId: Long) : Ui()
         object ShowKladrInfoDialog : Internal()
-
     }
 
     @Immutable

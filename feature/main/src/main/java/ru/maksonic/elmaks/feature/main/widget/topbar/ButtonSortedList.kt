@@ -9,6 +9,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
 import ru.maksonic.elmaks.core.ui.widget.IconActionButton
+import ru.maksonic.elmaks.feature.main.model.Model
+import ru.maksonic.elmaks.feature.main.model.Msg
 import ru.maksonic.elmaks.feature.main.view.Message
 import ru.maksonic.elmaks.feature.main.widget.SortingDropdownMenu
 import ru.maksonic.elmaks.shared.R.drawable
@@ -18,11 +20,10 @@ import ru.maksonic.elmaks.shared.R.string
  * @author maksonic on 01.05.2022
  */
 @Composable
-internal fun ButtonSortedList(filterBtnVisibility: Boolean, sendMsg: Message) {
-    val popupThemeMenu = remember { mutableStateOf(false) }
+internal fun ButtonSortedList(model: Model, sendMsg: Message, filterBtnVisibility: Boolean,) {
 
     AnimatedVisibility(visible = filterBtnVisibility) {
-        IconActionButton(onClick = { popupThemeMenu.value = true }) {
+        IconActionButton(onClick = { sendMsg(Msg.Ui.ShowSortDialog) }) {
             Icon(
                 painter = painterResource(id = drawable.ic_round_filter_list_24),
                 tint = ElmaksTheme.color.controlNormal,
@@ -31,6 +32,6 @@ internal fun ButtonSortedList(filterBtnVisibility: Boolean, sendMsg: Message) {
                 )
             )
         }
-        SortingDropdownMenu(popupThemeMenu = popupThemeMenu, sendMsg)
+        SortingDropdownMenu(popupThemeMenu = model.isShowSortDialog, sendMsg)
     }
 }

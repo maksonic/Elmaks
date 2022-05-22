@@ -6,10 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.maksonic.elmaks.core.store.AppDataStore
-import ru.maksonic.elmaks.core.store.AppThemeSetting
-import ru.maksonic.elmaks.core.store.ColorGenerator
-import ru.maksonic.elmaks.core.store.ResourceProvider
+import ru.maksonic.elmaks.core.store.*
 import javax.inject.Singleton
 
 /**
@@ -39,4 +36,8 @@ object CoreModule {
     @Singleton
     @Provides
     fun provideColorGenerator(): ColorGenerator = ColorGenerator.Generation()
+
+    @Singleton
+    @Provides
+    fun provideKeyStore(): KeyStore = KeyStore.PassedDataKey()
 }

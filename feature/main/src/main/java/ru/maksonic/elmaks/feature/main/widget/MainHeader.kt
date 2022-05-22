@@ -23,17 +23,14 @@ internal fun MainHeader(
     model: Model,
     modifier: Modifier = Modifier,
 ) {
+    val dp16 = ElmaksTheme.padding.dp16
     if (model.inputSearchCity.value.text.isEmpty()) {
         Text(
             text = stringResource(id = string.scr_main_header_title),
             style = ElmaksTheme.typography.display,
             color = ElmaksTheme.color.primary,
             overflow = TextOverflow.Ellipsis,
-            modifier = modifier.padding(
-                start = ElmaksTheme.padding.dp16,
-                top = ElmaksTheme.padding.dp16,
-                bottom = ElmaksTheme.padding.dp16
-            )
+            modifier = modifier.padding(start = dp16, top = dp16, bottom = dp16)
         )
     } else {
         Text(
@@ -61,11 +58,7 @@ internal fun MainHeader(
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             modifier = modifier.padding(
-                top = ElmaksTheme.padding.dp16,
-                bottom = ElmaksTheme.padding.dp8,
-                start = ElmaksTheme.padding.dp16,
-                end = ElmaksTheme.padding.dp16,
-            )
+                top = dp16, bottom = ElmaksTheme.padding.dp8, start = dp16, end = dp16)
         )
     }
 }
