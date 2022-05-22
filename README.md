@@ -18,9 +18,9 @@
 * Поиск города по названию.
 * Возможность сортировки списка.
 * Изменение цвета темы оформления (DarkMode, LightMode)
-
+<p></p>
 <p align="center">
-  <img src="assets/preview_find_city.gif" width="220" height="472">
-  <img src="assets/preview_sort_list.gif" width="220" height="472">
-  <img src="assets/preview_theme_switch.gif" width="20" height="472">
+  <img src="assets/preview_find_city.gif" width="280" height="600">
+  <img src="assets/preview_sort_list.gif" width="280" height="600">
+  <img src="assets/preview_theme_switch.gif" width="280" height="600">
 </p>
