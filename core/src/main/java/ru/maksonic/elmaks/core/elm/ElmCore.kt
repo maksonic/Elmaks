@@ -1,4 +1,4 @@
-package ru.maksonic.elmaks.core
+package ru.maksonic.elmaks.core.elm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,12 +20,14 @@ interface ElmProgram<M : Message, C : Command> {
 interface Sandbox<T : StateModel, M : Message, C : Command> {
     fun sendMsg(msg: M)
     fun update(msg: M, model: T): Pair<T, Set<C>>
+    fun backPressed(): Boolean
 }
 
 abstract class ElmRuntime<T : StateModel, M : Message, C : Command>(
-    private val initialModel: T,
-    private val initialCmd: Set<C> = emptySet(),
-    private val subscriptions: List<ElmProgram<M, C>>
+    initialModel: T,
+    initialCmd: Set<C> = emptySet(),
+    private val subscriptions: List<ElmProgram<M, C>> = emptyList(),
+    private val navigator: ElmNavigator
 ) : ViewModel(), Sandbox<T, M, C> {
 
     private val _model: MutableStateFlow<T> = MutableStateFlow(initialModel)
@@ -33,9 +35,7 @@ abstract class ElmRuntime<T : StateModel, M : Message, C : Command>(
         get() = _model
 
     init {
-        viewModelScope.launch {
-            executePrograms(initialCmd)
-        }
+        executePrograms(initialCmd)
     }
 
     override fun sendMsg(msg: M) {
@@ -54,4 +54,6 @@ abstract class ElmRuntime<T : StateModel, M : Message, C : Command>(
             }
         }
     }
+
+    override fun backPressed(): Boolean = navigator.backPressed()
 }

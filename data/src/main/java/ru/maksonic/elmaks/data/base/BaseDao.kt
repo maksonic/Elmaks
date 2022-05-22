@@ -11,7 +11,7 @@ import ru.maksonic.elmaks.core.CacheObject
  * @Author maksonic on 19.05.2022
  */
 @Dao
-interface BaseDao<T: CacheObject> {
+interface BaseDao<T : CacheObject> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(data: List<T>): List<Long>
 
@@ -20,7 +20,7 @@ interface BaseDao<T: CacheObject> {
 
     suspend fun fetchCacheList(): List<@JvmSuppressWildcards T>
 
-    fun fetchCacheItemById(itemId: Long): Flow<@JvmSuppressWildcards T>
+    fun fetchCacheItemById(itemId: Long): Flow<T>
 
     @Delete
     suspend fun deleteAllCachedList(data: List<T>)

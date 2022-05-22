@@ -2,9 +2,7 @@ package ru.maksonic.elmaks.data.base
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 import ru.maksonic.elmaks.core.CacheObject
 import ru.maksonic.elmaks.core.di.IoDispatcher
 import ru.maksonic.elmaks.core.store.ResourceProvider
@@ -42,13 +40,11 @@ interface BaseCacheDataSource<T> {
 
         override fun fetchCacheItemById(itemId: Long): Flow<Result<T>> = flow {
             try {
-                dao.fetchCacheItemById(itemId).collect { foundedItem ->
-                    emit(Result.success(foundedItem))
-                }
+                emit(Result.success(dao.fetchCacheItemById(itemId).first()))
             } catch (e: Exception) {
                 emit(Result.failure(e))
             }
-        }
+        }.flowOn(dispatcher)
 
         override suspend fun insertCacheList(list: List<T>) {
             try {
@@ -57,7 +53,7 @@ interface BaseCacheDataSource<T> {
                     dao.insertAll(list)
                 }
             } catch (e: Exception) {
-                Log.e("!!", "ERROR -> ${e.localizedMessage}")
+                Log.e("BaseCacheDataSource", "ERROR -> ${e.localizedMessage}")
             }
         }
     }

@@ -11,10 +11,9 @@ data class CityUi(
     val kladrId: Long,
     val name: String,
     val postalCode: Long,
-    val population: Long,
+    val population: String,
     val foundationYear: Int,
     val region: String,
-    val regionType: String,
     val federalDistrict: String,
     val timezone: String
 ): Parcelable

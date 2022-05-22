@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="txt_body_what_is_kladr"><b><i>Классификатор адресов Российской Федерации (КЛАДР)</i></b> — ведомственный классификатор ФНС России, созданный для распределения территорий между налоговыми инспекциями и автоматизированной рассылки корреспонденции.</string>
+    <string name="title_btn_confirm_dialog">Всё понятно!</string>
+    <string name="title_kladr_dialog">Что такое КЛАДР?</string>
+</resources>

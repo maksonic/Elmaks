@@ -1,12 +1,16 @@
 package ru.maksonic.elmaks.feature.main.view
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
 import ru.maksonic.elmaks.core.ui.widget.LoadingViewState
@@ -20,18 +24,13 @@ import ru.maksonic.elmaks.feature.main.widget.topbar.MainTopAppBar
  */
 internal typealias Message = (Msg) -> Unit
 
-@Preview
-@Composable
-private fun MainScreenPreview() {
-    MainScreen()
-}
-
 @Composable
 fun MainScreen(
     isDarkMode: State<Boolean> = mutableStateOf(false),
-    mainViewModel: MainViewModel = hiltViewModel()
 ) {
-    MainUiScreen(mainViewModel, isDarkMode)
+    val viewModel: MainViewModel = hiltViewModel()
+
+    MainUiScreen(viewModel, isDarkMode)
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -62,6 +61,7 @@ private fun MainUiScreen(
         backgroundColor = ElmaksTheme.color.background,
         modifier = modifier.systemBarsPadding()
     ) { paddingValues ->
+
         Column(modifier.padding(paddingValues)) {
             when {
                 model.value.isLoading -> LoadingViewState()

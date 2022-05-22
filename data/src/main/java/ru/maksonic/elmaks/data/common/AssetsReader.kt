@@ -14,6 +14,5 @@ interface AssetsReader {
             .open(fileName)
             .bufferedReader()
             .use { bufferReader -> bufferReader.readText() }
-
     }
 }

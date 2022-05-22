@@ -5,6 +5,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -14,6 +16,7 @@ import ru.maksonic.elmaks.feature.main.model.Msg
 import ru.maksonic.elmaks.feature.main.update.MainViewModel
 import ru.maksonic.elmaks.feature.main.widget.CityItem
 import ru.maksonic.elmaks.feature.main.widget.MainHeader
+import ru.maksonic.elmaks.navigation.api.NavDestination
 
 /**
  * @Author maksonic on 18.05.2022
@@ -45,7 +48,10 @@ internal fun SuccessCitiesViewState(model: Model, sendMsg: Message) {
                     items(cities) { city ->
                         CityItem(
                             city = city,
-                            selectCity = { sendMsg(Msg.Ui.OnCityClicked(city.kladrId)) })
+                            selectCity = {
+                                sendMsg(Msg.Ui.OnCityClicked(city.kladrId))
+                            }
+                        )
                     }
                 }
                 cities.isEmpty() -> item { EmptySearchResultViewState() }

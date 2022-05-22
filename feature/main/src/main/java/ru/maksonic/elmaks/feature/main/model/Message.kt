@@ -3,7 +3,7 @@ package ru.maksonic.elmaks.feature.main.model
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.SoftwareKeyboardController
-import ru.maksonic.elmaks.core.Message
+import ru.maksonic.elmaks.core.elm.Message
 import ru.maksonic.elmaks.shared.CityUi
 
 /**

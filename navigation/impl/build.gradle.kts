@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation(project(Module.CORE))
     implementation(project(Feature.MAIN))
     implementation(project(Feature.DETAILS))
     implementation(project(Module.Navigation.API))

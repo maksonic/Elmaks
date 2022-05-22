@@ -8,11 +8,12 @@
     <string name="scr_main_header_title">Выбрать город</string>
     <string name="scr_main_header_search_action">Ищем город:\n</string>
     <string name="cd_scr_details_to_main_btn">Кнопка, назад к списку городов</string>
+    <string name="cd_scr_details_kladr_info">Кнопка, узнать что такое КЛАДР</string>
 
     <string name="sorted_a_z">От А до Я</string>
     <string name="sorted_z_a">От Я до А</string>
     <string name="sorted_code_asc">Код по возрастанию</string>
     <string name="sorted_code_desc">Код по убыванию</string>
 
-    <string name="hint_retry_loading">Повторить попытку</string>
+    <string name="hint_retry_loading">Очень жаль</string>
 </resources>

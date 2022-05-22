@@ -1,12 +1,10 @@
 package ru.maksonic.elmaks.navigation.impl
 
-import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.maksonic.elmaks.navigation.api.Navigator
+import ru.maksonic.elmaks.navigation.api.CityNavigator
 import javax.inject.Singleton
 
 /**
@@ -22,5 +20,5 @@ object NavigationModule {
 
     @Singleton
     @Provides
-    fun provideNavService(): Navigator = Navigator()
+    fun provideNavService(): CityNavigator = CityNavigator()
 }

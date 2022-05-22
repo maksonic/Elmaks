@@ -3,13 +3,14 @@ package ru.maksonic.elmaks.feature.main.update
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.ExperimentalComposeUiApi
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.maksonic.elmaks.core.ElmRuntime
+import ru.maksonic.elmaks.core.elm.ElmRuntime
 import ru.maksonic.elmaks.feature.main.model.Cmd
 import ru.maksonic.elmaks.feature.main.model.Model
 import ru.maksonic.elmaks.feature.main.model.Msg
 import ru.maksonic.elmaks.feature.main.program.FetchCitiesProgram
 import ru.maksonic.elmaks.feature.main.program.NavigationProgram
 import ru.maksonic.elmaks.feature.main.program.SwitchThemeProgram
+import ru.maksonic.elmaks.navigation.api.CityNavigator
 import javax.inject.Inject
 
 /**
@@ -22,10 +23,12 @@ class MainViewModel @Inject constructor(
     fetchCitiesProgram: FetchCitiesProgram,
     switchThemeProgram: SwitchThemeProgram,
     navigationProgram: NavigationProgram,
+    navigator: CityNavigator,
 ) : ElmRuntime<Model, Msg, Cmd>(
     initialModel = Model(isLoading = true),
-    initialCmd = setOf(Cmd.LoadCities),
-    subscriptions = listOf(fetchCitiesProgram, switchThemeProgram, navigationProgram)
+    initialCmd = setOf(Cmd.FetchCities),
+    subscriptions = listOf(fetchCitiesProgram, switchThemeProgram, navigationProgram),
+    navigator = navigator
 ) {
 
     override fun update(msg: Msg, model: Model): Update =
@@ -46,14 +49,13 @@ class MainViewModel @Inject constructor(
             is Msg.Ui.ClearSearchingField -> clearSearchingField(model, msg)
         }
 
-
     private fun fetchingCityList(model: Model): Update =
         model.copy(
             isLoading = true,
             isSuccessLoading = false,
             isRefreshing = false,
             isErrorLoading = false
-        ) to setOf(Cmd.LoadCities)
+        ) to setOf(Cmd.FetchCities)
 
     private fun fetchingSuccess(model: Model, msg: Msg.Internal.FetchedSuccess): Update =
         model.copy(
@@ -112,12 +114,13 @@ class MainViewModel @Inject constructor(
                 it.name.contains(msg.query, ignoreCase = true)
             }
         ) to emptySet()
+
+    @OptIn(ExperimentalComposeUiApi::class)
+    private fun clearSearchingField(model: Model, msg: Msg.Ui.ClearSearchingField): Update =
+        model.copy(
+            citiesList = model.citiesList,
+            searchedList = emptyList(),
+            inputSearchCity = mutableStateOf(model.inputSearchCity.value.copy(text = ""))
+        ).apply { msg.keyboard?.hide() } to emptySet()
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
-private fun clearSearchingField(model: Model, msg: Msg.Ui.ClearSearchingField): Update =
-    model.copy(
-        citiesList = model.citiesList,
-        searchedList = emptyList(),
-        inputSearchCity = mutableStateOf(model.inputSearchCity.value.copy(text = ""))
-    ).apply { msg.keyboard?.hide() } to emptySet()

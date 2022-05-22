@@ -7,4 +7,3 @@ import kotlin.Exception
  */
 data class FakeDataException(override val message: String) : Exception(message)
 data class EmptyCacheException(override val message: String) : Exception(message)
-data class CachedItemNotFound(override val message: String) : Exception(message)

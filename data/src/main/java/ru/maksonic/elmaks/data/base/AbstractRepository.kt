@@ -1,8 +1,6 @@
 package ru.maksonic.elmaks.data.base
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.flow.*
 import ru.maksonic.elmaks.core.*
 import ru.maksonic.elmaks.domain.Repository
 
@@ -23,8 +21,7 @@ abstract class AbstractRepository<
     private val dataToDomainMapper: Mapper<C, D>
 ) : Repository<D> {
 
-    override fun fetchDataList(): DataList<D> = flow {
-
+    override fun fetchCitiesList(): DataList<D> =
         baseCacheDataSource.fetchCacheList().transform { cacheRequest ->
             cacheRequest.onSuccess { cacheList ->
                 val dataList = cacheMapper.mapToList(cacheList)
@@ -32,12 +29,18 @@ abstract class AbstractRepository<
                 emit(Result.success(domainList))
             }
             cacheRequest.onFailure {
-                refreshDataList()
+                fetchCloudCitiesList().collect { cloudRequest ->
+                    cloudRequest.onSuccess { cloudLists ->
+                        emit(Result.success(cloudLists))
+                    }
+                    cloudRequest.onFailure { throwable ->
+                        emit(Result.failure(throwable))
+                    }
+                }
             }
         }
-    }
 
-    override fun refreshDataList(): DataList<D> =
+    override fun fetchCloudCitiesList(): DataList<D> =
         baseCloudDataSource.fetchCloudList().transform { cloudRequest ->
             cloudRequest.onSuccess { cloudList ->
                 val dataList = cloudMapper.mapToList(cloudList)
@@ -46,7 +49,6 @@ abstract class AbstractRepository<
                 val domainList = dataToDomainMapper.mapToList(dataList)
                 emit(Result.success(domainList))
             }
-
             cloudRequest.onFailure { throwable ->
                 emit(Result.failure(throwable))
             }
@@ -59,7 +61,6 @@ abstract class AbstractRepository<
                 val domainItem = dataToDomainMapper.mapTo(dataItem)
                 emit(Result.success(domainItem))
             }
-
             tryFoundItem.onFailure { throwable ->
                 emit(Result.failure(throwable))
             }

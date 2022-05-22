@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.maksonic.elmaks.core.store.AppDataStore
 import ru.maksonic.elmaks.core.store.AppThemeSetting
+import ru.maksonic.elmaks.core.store.ColorGenerator
 import ru.maksonic.elmaks.core.store.ResourceProvider
 import javax.inject.Singleton
 
@@ -34,4 +35,8 @@ object CoreModule {
         dataStore: AppDataStore
     ): AppThemeSetting =
         AppThemeSetting.Base(context, dataStore)
+
+    @Singleton
+    @Provides
+    fun provideColorGenerator(): ColorGenerator = ColorGenerator.Generation()
 }

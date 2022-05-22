@@ -26,8 +26,11 @@ interface BaseCloudDataSource<C : CloudObject> {
             private const val FAKE_DELAY = 3000L
         }
 
+        protected abstract val jsonFileName: String
+        protected abstract fun cloudList(rawString: String): List<C>
+
         override fun fetchCloudList() = flow<Result<List<C>>> {
-         //   delay(FAKE_DELAY)
+            delay(FAKE_DELAY)
             val conversion = jsonConverter.convertAssertJsonToString(jsonFileName)
 
             conversion.onSuccess { rawString ->
@@ -48,9 +51,5 @@ interface BaseCloudDataSource<C : CloudObject> {
                 emit(Result.failure(throwable))
             }
         }.flowOn(dispatcher)
-
-        protected abstract val jsonFileName: String
-        protected abstract fun cloudList(rawString: String): List<C>
-
     }
 }

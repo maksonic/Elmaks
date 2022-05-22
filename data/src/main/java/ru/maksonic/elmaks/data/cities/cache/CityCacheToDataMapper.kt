@@ -2,7 +2,6 @@ package ru.maksonic.elmaks.data.cities.cache
 
 import ru.maksonic.elmaks.core.Mapper
 import ru.maksonic.elmaks.data.cities.CityData
-import ru.maksonic.elmaks.data.cities.cloud.CityCloud
 import javax.inject.Inject
 
 /**
