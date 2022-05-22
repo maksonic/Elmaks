@@ -17,12 +17,16 @@ fun ElmaksTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
+    val systemUiController = rememberSystemUiController()
     val colors = if (darkTheme) darkPalette else lightPalette
     val buttons = ElmaksButton(
         themeSelector = if (darkTheme) R.drawable.ic_round_light_mode_24
         else R.drawable.ic_round_mode_night_24
     )
-    val systemUiController = rememberSystemUiController()
+    val images = ElmaksImage(
+        onCityCardImage = if (darkTheme) R.drawable.ic_city_scape_light
+        else R.drawable.ic_city_scape_dark
+    )
 
     SideEffect {
         systemUiController.setSystemBarsColor(colors.background)
@@ -36,6 +40,7 @@ fun ElmaksTheme(
         LocalElmaksPadding provides paddings,
         LocalElmaksShape provides shapes,
         LocalElmaksTypography provides typography,
+        LocalElmaksImage provides images,
         content = content
     )
 }
@@ -48,4 +53,5 @@ object ElmaksTheme {
     val padding: ElmaksPadding @Composable get() = LocalElmaksPadding.current
     val shape: ElmaksShape @Composable get() = LocalElmaksShape.current
     val typography: ElmaksTypography @Composable get() = LocalElmaksTypography.current
+    val image: ElmaksImage @Composable get() = LocalElmaksImage.current
 }

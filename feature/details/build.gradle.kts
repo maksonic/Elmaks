@@ -45,6 +45,7 @@ dependencies {
     implementation(project(Module.CORE))
     implementation(project(Module.DOMAIN))
     implementation(project(Module.SHARED))
+    implementation(project(Module.Navigation.API))
 
     implementation(Lib.Compose.UI)
     implementation(Lib.Compose.UI_PREVIEW)

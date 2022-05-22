@@ -10,16 +10,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
-import ru.maksonic.elmaks.navigation.NavDestination
-import ru.maksonic.elmaks.navigation.Navigation
+import ru.maksonic.elmaks.navigation.api.NavDestination
+import ru.maksonic.elmaks.navigation.api.CityNavigator
+import ru.maksonic.elmaks.navigation.impl.GraphBuilder
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     @Inject
-    lateinit var navigation: Navigation
-
+    lateinit var cityNavigator: CityNavigator
+    @Inject
+    lateinit var graphBuilder: GraphBuilder
     private val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,18 +28,19 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            val navController = rememberNavController()
+            cityNavigator.navController = rememberNavController()
+            val navController = cityNavigator.navController
             val isDarkMode = viewModel.themeState.collectAsState()
 
             ElmaksTheme(darkTheme = isDarkMode.value) {
                 NavHost(
                     navController = navController,
-                    startDestination = NavDestination.route
+                    startDestination = NavDestination.route,
                 ) {
-                    navigation.navGraph(
+                    graphBuilder.mainNavGraph(
                         navGraphBuilder = this,
                         navController = navController,
-                        isDarkMode
+                        isDarkMode = isDarkMode
                     )
                 }
             }

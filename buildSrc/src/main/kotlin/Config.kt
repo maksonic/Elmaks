@@ -4,8 +4,12 @@ import org.gradle.api.JavaVersion
  * @author maksonic on 01.05.2022
  */
 object Config {
-    const val composeVersion = "1.2.0-alpha08"
-    const val kotlinVersion = "1.6.20"
+    const val composeVersion = "1.2.0-beta01"
+    const val hiltPluginVersion = "2.42"
+    const val kotlinVersion = "1.6.21"
+    const val kspVersion = "1.6.20-1.0.5"
+    const val serializationVersion = "1.6.10"
+
     const val appId = "ru.maksonic.elmaks"
     const val compileSdk = 32
     const val targetSdk = 32

@@ -25,11 +25,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
 import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
 import ru.maksonic.elmaks.core.ui.widget.IconActionButton
+import ru.maksonic.elmaks.feature.main.model.Model
+import ru.maksonic.elmaks.feature.main.model.Msg
 import ru.maksonic.elmaks.feature.main.view.Message
+import ru.maksonic.elmaks.shared.CityUi
 import ru.maksonic.elmaks.shared.R.drawable
 import ru.maksonic.elmaks.shared.R.string
 
@@ -39,15 +41,16 @@ import ru.maksonic.elmaks.shared.R.string
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun MainTopAppBar(
+    model: Model,
     sendMsg: Message,
+    keyboardController: SoftwareKeyboardController?,
+    isDarkMode: State<Boolean>,
     modifier: Modifier = Modifier,
-    searchable: MutableState<TextFieldValue>,
-    isDarkMode: State<Boolean>
 ) {
-    val keyboardController = LocalSoftwareKeyboardController.current
-    var filterBtnVisibility by remember { mutableStateOf(true) }
-    val searchableLength = 50
-    filterBtnVisibility = searchable.value.text.isEmpty()
+    var sortedBtnVisibility by remember { mutableStateOf(true) }
+    val enteredValue = model.inputSearchCity.value.text
+    val enteredValueMaxLength = ElmaksTheme.componentSize.enteredMaxLength
+    sortedBtnVisibility = enteredValue.isEmpty()
 
     TopAppBar(
         backgroundColor = ElmaksTheme.color.background,
@@ -58,8 +61,8 @@ internal fun MainTopAppBar(
         ) {
             MainAppBarNavIcon(
                 sendMsg = sendMsg,
-                visible = filterBtnVisibility,
-                cancelSearch = { cancelSearch(searchable, keyboardController) },
+                visible = sortedBtnVisibility,
+                keyboardController = keyboardController,
                 isDarkMode = isDarkMode,
             )
             Row(
@@ -82,10 +85,9 @@ internal fun MainTopAppBar(
                         .fillMaxHeight()
                         .weight(1f)
                         .padding(start = ElmaksTheme.padding.dp4),
-                    value = searchable.value,
+                    value = enteredValue,
                     onValueChange = {
-                        //Set max searchable text length
-                        if (it.text.length < searchableLength) searchable.value = it
+                        if (it.length < enteredValueMaxLength) sendMsg(Msg.Ui.SearchProcess(it))
                     },
                     textStyle = TextStyle(
                         color = ElmaksTheme.color.primaryText,
@@ -99,7 +101,7 @@ internal fun MainTopAppBar(
                         Box(
                             contentAlignment = Alignment.CenterStart
                         ) {
-                            if (searchable.value.text.isEmpty()) Text(
+                            if (model.inputSearchCity.value.text.isEmpty()) Text(
                                 modifier = modifier.padding(
                                     start = ElmaksTheme.padding.dp4,
                                     end = ElmaksTheme.padding.dp4
@@ -112,18 +114,17 @@ internal fun MainTopAppBar(
                                 maxLines = 1
                             )
                             innerTextField()
-
                         }
                     }
                 )
                 //Btn for clearing entered symbols in text field
                 AnimatedVisibility(
-                    visible = !filterBtnVisibility,
+                    visible = !sortedBtnVisibility,
                     enter = fadeIn(),
                     exit = fadeOut(),
                 ) {
                     IconActionButton(onClick = {
-                        searchable.value = searchable.value.copy(text = "")
+                        sendMsg(Msg.Ui.ClearSearchingField(keyboardController))
                     }) {
                         Icon(
                             painter = painterResource(id = drawable.ic_round_clear_24),
@@ -135,16 +136,7 @@ internal fun MainTopAppBar(
                     }
                 }
             }
-            ButtonSortedList(filterBtnVisibility, sendMsg)
+            ButtonSortedList(model, sendMsg, sortedBtnVisibility)
         }
     }
-}
-
-@OptIn(ExperimentalComposeUiApi::class)
-private fun cancelSearch(
-    searchable: MutableState<TextFieldValue>,
-    keyboardController: SoftwareKeyboardController?
-) {
-    searchable.value = searchable.value.copy("")
-    keyboardController?.hide()
 }

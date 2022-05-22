@@ -22,13 +22,15 @@ import ru.maksonic.elmaks.shared.CityUi
  */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal fun CityItem(modifier: Modifier = Modifier, selectCity: () -> Unit, city: CityUi) {
+internal fun CityItem(selectCity: () -> Unit, city: CityUi, modifier: Modifier = Modifier) {
+    val dp8 = ElmaksTheme.padding.dp8
+    val dp16 = ElmaksTheme.padding.dp16
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 16.dp),
-        shape = RoundedCornerShape(8.dp),
-        elevation = 8.dp,
+            .padding(top = dp8, bottom = dp8, start = dp16, end = dp16),
+        shape = RoundedCornerShape(dp8),
+        elevation = dp8,
         backgroundColor = ElmaksTheme.color.surface,
         onClick = selectCity
     ) {
@@ -38,14 +40,14 @@ internal fun CityItem(modifier: Modifier = Modifier, selectCity: () -> Unit, cit
         ) {
             Text(
                 text = city.name,
-                modifier = modifier.padding(top = 16.dp, bottom = 16.dp, start = 16.dp),
+                modifier = modifier.padding(top = dp16, bottom = dp16, start = dp16),
                 style = TextStyle(color = ElmaksTheme.color.onSurface, fontSize = 20.sp)
             )
             Spacer(modifier.weight(1f))
 
             Text(
                 text = city.postalCode.toString(),
-                modifier = modifier.padding(end = 16.dp),
+                modifier = modifier.padding(end = dp16),
                 style = TextStyle(color = ElmaksTheme.color.onSurface, fontSize = 20.sp)
             )
         }

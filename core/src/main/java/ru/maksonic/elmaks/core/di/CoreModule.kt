@@ -6,11 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.maksonic.elmaks.core.data.AssetsReader
-import ru.maksonic.elmaks.core.data.JsonConverter
-import ru.maksonic.elmaks.core.store.AppDataStore
-import ru.maksonic.elmaks.core.store.AppThemeSetting
-import ru.maksonic.elmaks.core.store.ResourceProvider
+import ru.maksonic.elmaks.core.store.*
 import javax.inject.Singleton
 
 /**
@@ -39,11 +35,9 @@ object CoreModule {
 
     @Singleton
     @Provides
-    fun provideAssetsReader(@ApplicationContext context: Context): AssetsReader =
-        AssetsReader.Reader(context)
+    fun provideColorGenerator(): ColorGenerator = ColorGenerator.Generation()
 
     @Singleton
     @Provides
-    fun provideJsonConverter(assetsReader: AssetsReader): JsonConverter =
-        JsonConverter.Converter(assetsReader)
+    fun provideKeyStore(): KeyStore = KeyStore.PassedDataKey()
 }
