@@ -13,6 +13,7 @@ import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
 import ru.maksonic.elmaks.navigation.api.NavDestination
 import ru.maksonic.elmaks.navigation.api.CityNavigator
 import ru.maksonic.elmaks.navigation.impl.GraphBuilder
+import ru.maksonic.elmaks.navigation.impl.MainGraph
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var cityNavigator: CityNavigator
     @Inject
-    lateinit var graphBuilder: GraphBuilder
+    lateinit var graphBuilder: MainGraph
     private val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
