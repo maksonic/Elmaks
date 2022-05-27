@@ -46,7 +46,7 @@ private fun DetailsUiScreen(
 
             when {
                 model.value.isLoading -> LoadingViewState()
-                model.value.isSuccessCityDetails -> SuccessDetailsViewState(model.value, sendMsg)
+                model.value.isSuccess -> SuccessDetailsViewState(model.value, sendMsg)
                 model.value.isError -> ErrorViewState(model.value, sendMsg)
             }
         }

@@ -47,7 +47,7 @@ private fun MainUiScreen(
         topBar = {
             when {
                 model.value.isLoading -> LoadingTopAppBar()
-                model.value.isSuccessLoading -> {
+                model.value.isSuccess -> {
                     MainTopAppBar(
                         model = model.value,
                         sendMsg = sendMsg,
@@ -64,8 +64,8 @@ private fun MainUiScreen(
         Column(modifier.padding(paddingValues)) {
             when {
                 model.value.isLoading -> LoadingViewState()
-                model.value.isSuccessLoading -> SuccessCitiesViewState(model.value, sendMsg)
-                model.value.isErrorLoading -> ErrorViewState(model.value, sendMsg)
+                model.value.isSuccess -> SuccessCitiesViewState(model.value, sendMsg)
+                model.value.isError -> ErrorViewState(model.value, sendMsg)
             }
         }
     }

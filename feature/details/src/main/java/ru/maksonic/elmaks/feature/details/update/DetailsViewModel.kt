@@ -53,7 +53,7 @@ class DetailsViewModel @Inject constructor(
     private fun retryFetchDetails(model: Model, msg: Msg.Ui.RetryFetchCityDetails): Update =
         model.copy(
             isLoading = true,
-            isSuccessCityDetails = false,
+            isSuccess = false,
             isError = false
         ) to setOf(Cmd.FetchCityInfo(msg.cityId))
 
@@ -61,14 +61,14 @@ class DetailsViewModel @Inject constructor(
         model.copy(
             isLoading = false,
             city = msg.city,
-            isSuccessCityDetails = true,
+            isSuccess = true,
             isError = false
         ) to emptySet()
 
     private fun errorFetching(model: Model, msg: Msg.Internal.Error): Update =
         model.copy(
             isLoading = false,
-            isSuccessCityDetails = false,
+            isSuccess = false,
             isError = true,
             errorMessage = msg.message
         ) to emptySet()

@@ -14,7 +14,7 @@ import ru.maksonic.elmaks.shared.CityUi
 @Immutable
 data class Model(
     val isLoading: Boolean = false,
-    val isSuccessCityDetails: Boolean = false,
+    val isSuccess: Boolean = false,
     val city: CityUi = CityUi(
         kladrId = 0,
         name = "",
