@@ -12,7 +12,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.maksonic.elmaks.core.ui.theme.ElmaksTheme
 import ru.maksonic.elmaks.navigation.api.NavDestination
 import ru.maksonic.elmaks.navigation.api.CityNavigator
-import ru.maksonic.elmaks.navigation.impl.GraphBuilder
 import ru.maksonic.elmaks.navigation.impl.MainGraph
 import javax.inject.Inject
 

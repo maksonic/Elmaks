@@ -13,9 +13,9 @@ import ru.maksonic.elmaks.shared.CityUi
 @Immutable
 data class Model(
     val isLoading: Boolean = false,
-    val isSuccessLoading: Boolean = false,
+    val isSuccess: Boolean = false,
     val isRefreshing: Boolean = false,
-    val isErrorLoading: Boolean = false,
+    val isError: Boolean = false,
     val errorFetchingMsg: String = "",
     val inputSearchCity: MutableState<TextFieldValue> = mutableStateOf(TextFieldValue("")),
     val citiesList: List<CityUi> = emptyList(),

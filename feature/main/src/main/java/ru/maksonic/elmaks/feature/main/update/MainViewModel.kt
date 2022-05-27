@@ -52,40 +52,40 @@ class MainViewModel @Inject constructor(
     private fun fetchingCityList(model: Model): Update =
         model.copy(
             isLoading = true,
-            isSuccessLoading = false,
+            isSuccess = false,
             isRefreshing = false,
-            isErrorLoading = false
+            isError = false
         ) to setOf(Cmd.FetchCities)
 
     private fun fetchingSuccess(model: Model, msg: Msg.Internal.FetchedSuccess): Update =
         model.copy(
             isLoading = false,
-            isSuccessLoading = true,
+            isSuccess = true,
             isRefreshing = false,
-            isErrorLoading = false,
+            isError = false,
             citiesList = msg.fetchedCityList
         ) to emptySet()
 
     private fun refreshingCityList(model: Model): Update =
-        model.copy(isLoading = false, isRefreshing = true, isErrorLoading = false) to setOf(
+        model.copy(isLoading = false, isRefreshing = true, isError = false) to setOf(
             Cmd.RefreshCites
         )
 
     private fun refreshedSuccess(model: Model, msg: Msg.Internal.RefreshedSuccess): Update =
         model.copy(
             isLoading = false,
-            isSuccessLoading = true,
+            isSuccess = true,
             isRefreshing = false,
-            isErrorLoading = false,
+            isError = false,
             citiesList = msg.refreshedCityList
         ) to emptySet()
 
     private fun errorData(model: Model, msg: Msg.Internal.Error): Update =
         model.copy(
             isLoading = false,
-            isSuccessLoading = false,
+            isSuccess = false,
             isRefreshing = false,
-            isErrorLoading = true,
+            isError = true,
             errorFetchingMsg = msg.errorMsg
         ) to emptySet()
 

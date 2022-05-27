@@ -31,7 +31,7 @@ object CacheModule {
 
     @Singleton
     @Provides
-    fun provideCategoryDao(db: CitiesDatabase): CityDao = db.cityDao()
+    fun provideCityDao(db: CitiesDatabase): CityDao = db.cityDao()
 
     @Singleton
     @Provides
